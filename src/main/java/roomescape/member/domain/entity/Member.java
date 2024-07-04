@@ -13,7 +13,7 @@ public class Member {
     public Member(Long id, String name, String roleName, String email, String password) {
         this.id = id;
         this.name = name;
-        this.role = MemberRole.findByName(roleName);
+        this.role = MemberRole.createByName(roleName);
         this.email = email;
         this.password = password;
     }
@@ -47,7 +47,7 @@ public class Member {
     }
 
     public String getRoleName() {
-        return role.getName();
+        return role.name();
     }
 
     public void setId(Long id) {

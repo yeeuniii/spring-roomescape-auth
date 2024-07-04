@@ -1,21 +1,13 @@
 package roomescape.member.domain;
 
+import java.util.Objects;
+
 public enum MemberRole {
-    GUEST("게스트"),
-    ADMIN("관리자");
+    GUEST,
+    ADMIN;
 
-    private final String name;
-
-    MemberRole(String name) {
-        this.name = name;
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public static MemberRole findByName(String name) {
-        if (name.equals(ADMIN.name)) {
+    public static MemberRole createByName(String name) {
+        if (Objects.equals(name, ADMIN.name())) {
             return ADMIN;
         }
         return GUEST;
