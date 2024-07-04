@@ -44,6 +44,7 @@ public class SignUpTest {
 
         MemberResponse body = response.body().as(MemberResponse.class);
         assertThat(body.name()).isEqualTo(name);
+        assertThat(body.role()).isEqualTo("게스트");
         assertThat(body.email()).isEqualTo(email);
         String location = response.header("location");
         assertThat(location).isEqualTo("/members/" + body.id());
