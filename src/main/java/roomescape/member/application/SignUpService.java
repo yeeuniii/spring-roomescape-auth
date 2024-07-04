@@ -2,6 +2,7 @@ package roomescape.member.application;
 
 import org.springframework.stereotype.Service;
 import roomescape.member.domain.MemberRepository;
+import roomescape.member.domain.MemberRole;
 import roomescape.member.domain.entity.Member;
 import roomescape.member.ui.dto.MemberRequest;
 import roomescape.member.ui.dto.MemberResponse;
@@ -24,7 +25,7 @@ public class SignUpService {
     public MemberResponse signUp(MemberRequest memberRequest) {
         memberValidator.validateRequest(memberRequest);
         String encodedPassword = passwordEncoder.encode(memberRequest.password());
-        Member member = Member.of(memberRequest, encodedPassword);
+        Member member = Member.of(memberRequest, MemberRole.GUEST.getName(), encodedPassword);
         Long memberId = memberRepository.save(member);
         member.setId(memberId);
         return MemberResponse.from(member);
