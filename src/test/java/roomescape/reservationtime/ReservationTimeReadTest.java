@@ -76,7 +76,7 @@ public class ReservationTimeReadTest {
         reservationTimeService.add(ReservationTimeRequest.create("12:00"));
         reservationTimeService.add(ReservationTimeRequest.create("14:00"));
         reservationTimeService.add(ReservationTimeRequest.create("16:00"));
-        signUpService.signUp(new MemberRequest("yeeun", "asdf@asdf", "password"));
+        signUpService.signUp(new MemberRequest("yeeun", "asdf@asdf", "password"), "GUEST");
         LocalDate tomorrow = LocalDate.now().plusDays(1);
         reservationService.make(ReservationRequest.of(1L, tomorrow.toString(), 1L, 1L));
         reservationService.make(ReservationRequest.of(1L, tomorrow.toString(), 2L, 2L));

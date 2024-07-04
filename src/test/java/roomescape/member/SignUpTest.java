@@ -44,7 +44,7 @@ public class SignUpTest {
 
         MemberResponse body = response.body().as(MemberResponse.class);
         assertThat(body.name()).isEqualTo(name);
-        assertThat(body.role()).isEqualTo("게스트");
+        assertThat(body.role()).isEqualTo("GUEST");
         assertThat(body.email()).isEqualTo(email);
         String location = response.header("location");
         assertThat(location).isEqualTo("/members/" + body.id());
@@ -66,7 +66,7 @@ public class SignUpTest {
         String name = "yeeun";
         String email = "anna862700@gmail.com";
         String password = "password";
-        signUpService.signUp(new MemberRequest(name, email, password));
+        signUpService.signUp(new MemberRequest(name, email, password), "GUEST");
 
         RestAssured
                 .given().log().all()

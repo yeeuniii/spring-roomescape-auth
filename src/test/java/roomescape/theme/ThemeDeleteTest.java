@@ -39,7 +39,7 @@ public class ThemeDeleteTest {
     }
     
     private long makeDummyReservation() {
-        long memberId = signUpService.signUp(new MemberRequest("yeeun", "asdf@asdf", "password")).id();
+        long memberId = signUpService.signUp(new MemberRequest("yeeun", "asdf@asdf", "password"), "GUEST").id();
         long timeId = reservationTimeService.add(ReservationTimeRequest.create("13:00")).id();
         long themeId = themeService.add(ThemeRequest.of("a", "b", "c")).id();
         String date = LocalDate.now().plusWeeks(1).toString();

@@ -46,7 +46,7 @@ public class AdminReservationTest {
     @DisplayName("관리자 페이지에서 예약 생성")
     void reserveInAdminPage() {
         String name = "yeeun";
-        signUpService.signUp(new MemberRequest(name, "email@email", "password"));
+        signUpService.signUp(new MemberRequest(name, "email@email", "password"), "GUEST");
         makeDummyTimeAndTheme();
         String date = LocalDate.now().plusWeeks(1).toString();
 
