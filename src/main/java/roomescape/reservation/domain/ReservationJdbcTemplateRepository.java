@@ -26,8 +26,8 @@ public class ReservationJdbcTemplateRepository implements ReservationRepository 
     private final RowMapper<Reservation> rowMapper = (resultSet, rowNum) -> {
         Member member = Member.of(
                 resultSet.getLong("member_id"),
-                resultSet.getString("member_role"),
                 resultSet.getString("member_name"),
+                resultSet.getString("member_role"),
                 resultSet.getString("member_email"),
                 null
         );
