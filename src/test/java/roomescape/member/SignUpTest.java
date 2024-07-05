@@ -76,4 +76,25 @@ public class SignUpTest {
                 .then().log().all()
                 .statusCode(HttpStatus.BAD_REQUEST.value());
     }
+
+    @Test
+    @DisplayName("관리자 회원 생성")
+    void signupAdminMember() {
+        String name = "admin";
+        String email = "admin@gmail.com";
+        String password = "password";
+
+        MemberResponse admin = RestAssured
+                .given().log().all()
+                .contentType(ContentType.JSON)
+                .body(new MemberRequest(name, email, password))
+                .when().post("/members?role=ADMIN")
+                .then().log().all()
+                .statusCode(HttpStatus.CREATED.value())
+                .extract().as(MemberResponse.class);
+
+        assertThat(admin.name()).isEqualTo(name);
+        assertThat(admin.email()).isEqualTo(email);
+        assertThat(admin.role()).isEqualTo("ADMIN");
+    }
 }
