@@ -27,11 +27,13 @@ public class AdminInterceptor implements HandlerInterceptor {
             HttpServletResponse response,
             Object handler) throws IOException {
         Cookie[] cookies = request.getCookies();
+
         try {
             String token = cookieUtils.getCookieByName(cookies, "token")
                     .orElseThrow(() -> UnauthorizedException.of("토큰이 없습니다."))
                     .getValue();
-            if (!jwtTokenProvider.extractMemberRole(token).equals(MemberRole.ADMIN.name())) {
+            boolean isAdmin = jwtTokenProvider.extractMemberRole(token).equals(MemberRole.ADMIN.name());
+            if (!isAdmin) {
                 throw UnauthorizedException.of("관리자 페이지 권한이 없습니다.");
             }
         }
@@ -39,7 +41,7 @@ public class AdminInterceptor implements HandlerInterceptor {
             response.setStatus(HttpStatus.UNAUTHORIZED.value());
             response.setContentType("text/plain");
             response.setCharacterEncoding("utf-8");
-            response.getWriter().write("Error: " + exception.getMessage());
+            response.getWriter().write("Error: 관리자 페이지 접근 권한이 없습니다.");
             return false;
         }
         return true;
