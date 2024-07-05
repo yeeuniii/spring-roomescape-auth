@@ -10,6 +10,7 @@ import roomescape.auth.application.JwtTokenProvider;
 import roomescape.auth.ui.argumentresolver.AuthenticatedArgumentResolver;
 import roomescape.auth.ui.argumentresolver.LoginArgumentResolver;
 import roomescape.auth.ui.interceptor.AdminInterceptor;
+import roomescape.auth.ui.interceptor.TokenValidateInterceptor;
 
 import java.util.List;
 
@@ -41,6 +42,8 @@ public class WebMvcConfiguration implements WebMvcConfigurer {
 
     @Override
     public void addInterceptors(InterceptorRegistry registry) {
+        registry.addInterceptor(new TokenValidateInterceptor(jwtTokenProvider, cookieUtils))
+                .addPathPatterns("/admin/**", "/reservation", "/reservations/**", "/times/**", "/themes/**");
         registry.addInterceptor(new AdminInterceptor(jwtTokenProvider, cookieUtils))
                 .addPathPatterns("/admin/**");
     }
